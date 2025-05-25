@@ -37,7 +37,7 @@ function App() {
           element: <GenerateReact />
         },
         {
-          path: "/generateRecipe",
+          path: "/generateSimple",
           element: <GenerateSimple />
         }
       ]
@@ -47,7 +47,7 @@ function App() {
   return (
     <div className="wrapper">
       <RouterProvider router={router} />
-    </div>
+      </div>
 
 
 
