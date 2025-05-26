@@ -27,14 +27,21 @@ export default function ChatReact() {
         ))}
         {loading && <div>Đang trả lời...</div>}
       </div>
-      <input
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        onKeyDown={e => e.key === "Enter" && handleSend()}
-        placeholder="Nhập tin nhắn..."
-        style={{ width: "80%" }}
-      />
-      <button onClick={handleSend} disabled={loading}>Gửi</button>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          handleSend();
+        }}
+        style={{ display: "flex", alignItems: "center", marginTop: 16 }}
+      >
+        <input
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Nhập tin nhắn..."
+          style={{ width: "80%" }}
+        />
+        <button type="submit" disabled={loading} style={{ marginLeft: 8 }}>Gửi</button>
+      </form>
     </div>
   );
 }

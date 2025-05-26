@@ -1,9 +1,53 @@
+import { useState } from "react";
+import { callGemini } from "../utils/geminiApi";
+import { callStabilityUltra } from "../utils/dalleApi";
 
 function GenerateImage() {
+  const [description, setDescription] = useState("");
+  const [recipe, setRecipe] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleGenerate = async () => {
+    setRecipe("");
+    setImageUrl("");
+    setLoading(true);
+    // 1. Gọi Gemini để sinh công thức
+    const recipeText = await callGemini(
+      `Create a short and summarized food recipe (no more than 5 lines, only main steps and main ingredients) for: ${description}`
+    );
+    setRecipe(recipeText);
+
+    // 2. Gọi Stability AI để sinh hình ảnh từ mô tả món ăn
+    const image = await callStabilityUltra(description);
+    setImageUrl(image);
+
+    setLoading(false);
+  };
+
   return (
     <main>
-      <h2>Image Generation</h2>
-      <p>Hiện tại Gemini API chưa hỗ trợ sinh ảnh trực tiếp. Nếu bạn muốn sinh ảnh, hãy sử dụng các model như DALL-E, Stable Diffusion hoặc các dịch vụ AI image khác.</p>
+      <h2>Recipe & Image Generator</h2>
+      <input
+        value={description}
+        onChange={e => setDescription(e.target.value)}
+        placeholder="Input details of food..."
+        style={{ width: "60%" }}
+      />
+      <button onClick={handleGenerate} disabled={loading}>Create recipe and image</button>
+      {loading && <div>Generating recipe and image...</div>}
+      {recipe && (
+        <div>
+          <h3>Recipe:</h3>
+          <pre>{recipe}</pre>
+        </div>
+      )}
+      {imageUrl && (
+        <div>
+          <h3>Image:</h3>
+          <img src={imageUrl} alt="Generated dish" style={{ maxWidth: 400 }} />
+        </div>
+      )}
     </main>
   );
 }

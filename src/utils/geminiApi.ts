@@ -1,6 +1,6 @@
 export async function callGemini(prompt: string): Promise<string> {
   const response = await fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDtqVJ1q6M-YMgV0jkX0LMS2mAs-dEAMbg',
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDtqVJ1q6M-YMgV0jkX0LMS2mAs-dEAMbg',
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -10,6 +10,7 @@ export async function callGemini(prompt: string): Promise<string> {
     }
   );
   const data = await response.json();
+  console.log("Gemini API response:", data);
   return data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
 }
 // Thay YOUR_API_KEY bằng API key Gemini mới của bạn. 
