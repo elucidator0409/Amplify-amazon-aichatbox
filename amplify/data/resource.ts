@@ -12,32 +12,32 @@ const schema = a.schema({
   .handler(a.handler.function(getWeather))
   .authorization((allow) => allow.authenticated()),
 
-  chat: a.conversation({
-    aiModel: a.ai.model('Claude 3 Haiku'),
-    systemPrompt: `You are a helpful assistant. Only use the getWeatherTool if the user explicitly asks about the weather or a city's temperature. Otherwise, do not use this tool.`,
-    tools:[{
-      name: 'getWeatherTool',
-      description: 'Provide the current weather for the city',
-      query: a.ref('getWeather')
-    }], 
-  }).authorization(
-    allow => allow.owner()
-    ),
+  // chat: a.conversation({
+  //   aiModel: a.ai.model('Claude 3 Haiku'),
+  //   systemPrompt: `You are a helpful assistant. Only use the getWeatherTool if the user explicitly asks about the weather or a city's temperature. Otherwise, do not use this tool.`,
+  //   tools:[{
+  //     name: 'getWeatherTool',
+  //     description: 'Provide the current weather for the city',
+  //     query: a.ref('getWeather')
+  //   }], 
+  // }).authorization(
+  //   allow => allow.owner()
+  //   ),
 
-    generateRecipe: a.generation({
-      aiModel: a.ai.model('Claude 3 Haiku'),
-      systemPrompt: 'You are a helpful assistant that generates recipes.',
-    })
-    .arguments({
-      description: a.string(),
-    })
-    .returns(
-      a.customType({
-        name: a.string(),
-        ingredients: a.string().array(),
-        instructions: a.string(),
-      })
-    ).authorization((allow) => allow.authenticated()),
+    // generateRecipe: a.generation({
+    //   aiModel: a.ai.model('Claude 3 Haiku'),
+    //   systemPrompt: 'You are a helpful assistant that generates recipes.',
+    // })
+    // .arguments({
+    //   description: a.string(),
+    // })
+    // .returns(
+    //   a.customType({
+    //     name: a.string(),
+    //     ingredients: a.string().array(),
+    //     instructions: a.string(),
+    //   })
+    // ).authorization((allow) => allow.authenticated()),
 
 
     generateImage: a

@@ -1,50 +1,33 @@
-import { client } from "../AiClient";
-import type { Schema } from "../../amplify/data/resource";
-import { type FormEvent, useState } from "react";
+import { useState } from "react";
+import { callGemini } from "../utils/geminiApi";
 
-type Recipe = Schema['generateRecipe']['type']
-
-function GenerateSimple(){
-
+function GenerateSimple() {
     const [description, setDescription] = useState("");
-    const [generatedRecipe, setGeneratedRecipe] = useState<Recipe>()
+    const [recipe, setRecipe] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleClick = async (e: FormEvent) => {
-        e.preventDefault()
-        const result = await client.generations.generateRecipe({
-            description: description
-        })
-        console.log(result)
-        if (result.data) {
-            setGeneratedRecipe(result.data)
-        }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!description.trim()) return;
+        setLoading(true);
+        const prompt = `Hãy tạo một công thức nấu ăn dựa trên mô tả sau: ${description}`;
+        const result = await callGemini(prompt);
+        setRecipe(result);
+        setLoading(false);
     };
 
-    function renderRecipe() {
-        if (generatedRecipe) {
-            const ingredientsList = []
-            if (generatedRecipe.ingredients) {
-                for (const ingredient of generatedRecipe.ingredients) {
-                    ingredientsList.push(<li key={ingredient}>{ingredient}</li>)
-                }
-            }
-            return <div>
-                <h2>{generatedRecipe.name}</h2>
-                {ingredientsList}
-                <h3>{generatedRecipe.instructions}</h3>
-            </div>
-        }
-    }
-
-    return <main>
-        <form onSubmit={(e) => handleClick(e)}>
-            <label> Recipe:</label>
-            <input value={description} onChange={(e) => setDescription(e.target.value)} />
-            <input type="submit" value='Generate recipe' />
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder="Nhập mô tả món ăn..."
+            />
+            <button type="submit" disabled={loading}>Tạo công thức</button>
+            {loading && <div>Đang sinh công thức...</div>}
+            {recipe && <pre>{recipe}</pre>}
         </form>
-        <br />
-        {renderRecipe()}
-    </main>
+    );
 }
 
-export default GenerateSimple
+export default GenerateSimple;
