@@ -14,12 +14,12 @@ const schema = a.schema({
 
   chat: a.conversation({
     aiModel: a.ai.model('Claude 3 Haiku'),
-    systemPrompt: `You are a helpful assistant. When asked about the weather, use the getWeatherTool and respond using the WeatherCard component with the following props: city, temperature, unit.`,
+    systemPrompt: `You are a helpful assistant. Only use the getWeatherTool if the user explicitly asks about the weather or a city's temperature. Otherwise, do not use this tool.`,
     tools:[{
       name: 'getWeatherTool',
       description: 'Provide the current weather for the city',
       query: a.ref('getWeather')
-    }],
+    }], 
   }).authorization(
     allow => allow.owner()
     ),

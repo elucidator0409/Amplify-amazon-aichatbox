@@ -8,6 +8,7 @@ import ChatSimple from './components/ChatSimple'
 import ChatReact from './components/ChatReact'
 import GenerateSimple from './components/GenerateSimple'
 import GenerateReact from './components/GenerateReact'
+import GenerateImage from './components/GenerateImage'
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
         {
           path: "/generateSimple",
           element: <GenerateSimple />
+        },
+        {
+          path: "/generateImage",
+          element: <GenerateImage />
         }
       ]
     }
