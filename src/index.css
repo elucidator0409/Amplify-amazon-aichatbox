@@ -11,6 +11,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --bg-color: #fff;
+  --text-color: #222;
 }
 
 a {
@@ -28,6 +31,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark-theme {
+  --bg-color: #111;
+  --text-color: #fff;
 }
 
 h1 {
@@ -79,30 +89,136 @@ button:focus-visible {
   color: white;
 }
 
-
 /* Add a black background color to the top navigation */
 .navbar {
   overflow: hidden;
-  background-color: #564949de;
+  background: linear-gradient(90deg, #1e2a42 0%, #3a5998 100%);
+  box-shadow: 0 4px 16px rgba(30, 42, 66, 0.25);
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  height: 60px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Style the links inside the navigation bar */
 .navbar a {
-  float: left;
+  color: #fff !important;
+  font-weight: 500;
   text-align: center;
-  padding: 14px 16px;
+  padding: 12px 22px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
+  border-radius: 999px;
+  margin: 0 4px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 1;
 }
 
-/* Change the color of links on hover */
 .navbar a:hover {
-  background-color: #ddd;
-  color: black;
+  background: rgba(255,255,255,0.12);
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
 }
 
-/* Add a color to the active/current link */
 .navbar a.active {
-  background-color: #8f959c;
-  color: white;
+  background: #fff !important;
+  color: #1e2a42 !important;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.12);
+  font-weight: 700;
+}
+
+.navbar button {
+  margin-left: auto;
+  background: #fff !important;
+  color: #1e2a42 !important;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.10);
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+
+.navbar button:hover {
+  background: #3a5998 !important;
+  color: #fff !important;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 8px 0;
+    border-radius: 0 0 12px 12px;
+  }
+  .navbar a, .navbar button {
+    margin: 6px 0;
+    width: 90%;
+    text-align: center;
+  }
+}
+
+/* Đảm bảo các thành phần chính cũng dùng biến màu */
+.wrapper, .navbar, main, input, button, pre, h1, h2, h3, h4, h5, h6 {
+  background: inherit;
+  color: inherit;
+}
+
+input, button {
+  border: 1px solid #ccc;
+  background: #fafafa;
+  color: var(--text-color);
+}
+body.dark-theme input, body.dark-theme button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.result-box {
+  color: #222 !important;
+  background: #f6f6f6;
+}
+body.dark-theme .result-box {
+  color: #222 !important;
+  background: #f6f6f6;
+}
+
+/* Override old navbar rules - ensure text changes with theme */
+body .navbar a,
+html .navbar a {
+  color: #000 !important; /* Default black for light mode */
+}
+
+body.dark-theme .navbar a {
+  color: #fff !important; /* White for dark mode */
+}
+
+body .navbar a:hover,
+html .navbar a:hover {
+  background: rgba(0,0,0,0.08) !important; /* Light hover for light mode */
+  color: #000 !important;
+}
+
+body.dark-theme .navbar a:hover {
+  background: rgba(255,255,255,0.12) !important; /* Dark hover for dark mode */
+  color: #fff !important;
+}
+
+body .navbar a.active,
+html .navbar a.active {
+  background: #fff !important;
+  color: #1e2a42 !important; /* Dark text on white background */
+}
+
+body.dark-theme .navbar a.active {
+  background: #fff !important;
+  color: #1e2a42 !important; /* Same for both modes - dark text on white */
 }

@@ -6,13 +6,13 @@ function GenerateImage() {
   const [description, setDescription] = useState("");
   const [dishName, setDishName] = useState("");
   const [recipe, setRecipe] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleGenerate = async () => {
     setDishName("");
     setRecipe("");
-    setImageUrl("");
+    // setImageUrl("");
     setLoading(true);
 
     // 1. Gợi ý tên món ăn
@@ -57,10 +57,21 @@ function GenerateImage() {
           <pre>{recipe}</pre>
         </div>
       )}
-      {imageUrl && (
+      {(recipe && dishName) && (
         <div>
           <h3>Image:</h3>
-          <img src={imageUrl} alt="Generated dish" style={{ maxWidth: 400 }} />
+          <div style={{
+            background: '#ffeeba',
+            color: '#222',
+            padding: '16px',
+            borderRadius: '8px',
+            fontWeight: 'bold',
+            marginTop: '12px',
+            border: '1px solid #ffeeba',
+            textAlign: 'center'
+          }}>
+            🚧 This feature is under development. Image generation will be available soon!
+          </div>
         </div>
       )}
     </main>

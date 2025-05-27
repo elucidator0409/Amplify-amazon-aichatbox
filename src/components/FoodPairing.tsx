@@ -36,7 +36,7 @@ Reason: ...
       <button onClick={handleSuggest} disabled={loading}>Suggest Pairing</button>
       {loading && <div>Generating suggestions...</div>}
       {result && (
-        <div style={{ marginTop: 20, background: "#f6f6f6", padding: 16, borderRadius: 8 }}>
+        <div className="result-box" style={{ marginTop: 20, background: "#f6f6f6", padding: 16, borderRadius: 8 }}>
           <pre style={{ whiteSpace: "pre-wrap" }}>{result}</pre>
         </div>
       )}
