@@ -9,6 +9,7 @@ import ChatReact from './components/ChatReact'
 import GenerateSimple from './components/GenerateSimple'
 import GenerateReact from './components/GenerateReact'
 import GenerateImage from './components/GenerateImage'
+import FoodPairing from './components/FoodPairing'
 
 function App() {
 
@@ -44,6 +45,10 @@ function App() {
         {
           path: "/generateImage",
           element: <GenerateImage />
+        },
+        {
+          path: "/foodPairing",
+          element: <FoodPairing />
         }
       ]
     }

@@ -9,5 +9,6 @@ export default function NavBar() {
         {/* <NavLink to={"/generateReact"}>Generate React</NavLink> */}
         <NavLink to={"/generateSimple"}>Generate Simple</NavLink>
         <NavLink to={"/generateImage"}>Generate Image</NavLink>
+        <NavLink to={"/foodPairing"}>Food Pairing</NavLink>
     </div>
 }
